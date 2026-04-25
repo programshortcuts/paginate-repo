@@ -1,0 +1,19 @@
+.
+├── backend
+│   ├── app
+│   │   ├── data.py
+│   │   ├── database.py
+│   │   ├── main.py
+│   │   ├── models.py
+│   │   └── routes
+│   │       └── sidebar.py
+│   ├── requirements.txt
+│   └── run.py
+├── frontend
+│   ├── app.js
+│   ├── index.html
+│   └── styles.css
+└── venv
+
+
+180 directories, 1317 files

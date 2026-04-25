@@ -1,3 +1,4 @@
+# data.py
 SIDEBAR_DATA = [
     {
         "id": 1,

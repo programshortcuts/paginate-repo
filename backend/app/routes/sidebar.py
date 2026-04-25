@@ -1,8 +1,12 @@
+# routes/sidebar.py
 from fastapi import APIRouter
-from app.data import SIDEBAR_DATA
 
 router = APIRouter()
 
 @router.get("/sidebar")
 def get_sidebar():
-    return {"sidebar": SIDEBAR_DATA}
+    return [
+        {"id": 1, "title": "Home", "slug": "home"},
+        {"id": 2, "title": "Lessons", "slug": "lessons"},
+        {"id": 3, "title": "Settings", "slug": "settings"},
+    ]
