@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app.database import SessionLocal
 from app import models
 
-router = APIRouter()
+router = APIRouter(prefix="/api")
 
 def get_db():
     db = SessionLocal()
@@ -13,12 +13,12 @@ def get_db():
     finally:
         db.close()
 
-# ✅ GET (read sidebar items)
+# ✅ GET all items
 @router.get("/sidebar")
-def get_sidebar(db: Session = Depends(get_db)):
+def get_sidebar_items(db: Session = Depends(get_db)):
     return db.query(models.SidebarItem).all()
 
-# ✅ POST (add sidebar item)
+# ✅ POST new item
 @router.post("/sidebar")
 def add_sidebar_item(item: dict, db: Session = Depends(get_db)):
     new_item = models.SidebarItem(title=item["title"])

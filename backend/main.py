@@ -1,15 +1,15 @@
 # main.py 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes.sidebar import router as sidebar_router
-
+from app.routes import sidebar
 
 app = FastAPI()
 
-from app.database import Base, engine
+
+from app.database import engine
 from app import models
 
-Base.metadata.create_all(bind=engine)
+models.Base.metadata.create_all(bind=engine)
 
 
 app.add_middleware(
@@ -17,9 +17,12 @@ app.add_middleware(
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
-app.include_router(sidebar_router, prefix="/api")
+
+app.include_router(sidebar.router)
 @app.get("/")
 def root():
     return {"status":"ok"}
+
+
