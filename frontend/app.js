@@ -2,19 +2,29 @@ async function loadSidebar() {
   const res = await fetch("http://127.0.0.1:8000/api/sidebar");
   const data = await res.json();
 
-  console.log("DATA:", data);
-
   const sidebar = document.getElementById("sidebar");
 
   sidebar.innerHTML = data.map(item => {
-    return `
-            <div class="item">
-                <h3>${item.title}</h3>
-            </div>
-        `;
+    return `<div>${item.title}</div>`;
   }).join("");
-
-  console.log("APP JS LOADED");
 }
+
+async function addItem() {
+  const title = prompt("New sidebar item name:");
+
+  if (!title) return;
+
+  await fetch("http://127.0.0.1:8000/api/sidebar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ title })
+  });
+
+  loadSidebar(); // refresh UI
+}
+
+document.getElementById("addBtn").addEventListener("click", addItem);
 
 loadSidebar();

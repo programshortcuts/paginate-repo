@@ -6,9 +6,11 @@ from app.routes import sidebar
 app = FastAPI()
 
 # Allow frontend to talk to backend
+
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # tighten later
+    allow_origins=["*"],  # temporary for deployment
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -16,3 +18,7 @@ app.add_middleware(
 
 # routes
 app.include_router(sidebar.router, prefix="/api")
+
+@app.get("/")
+def root():
+    return {"status":"ok"}
