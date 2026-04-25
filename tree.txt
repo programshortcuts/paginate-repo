@@ -3,17 +3,16 @@
 │   ├── app
 │   │   ├── data.py
 │   │   ├── database.py
-│   │   ├── main.py
 │   │   ├── models.py
 │   │   └── routes
-│   │       └── sidebar.py
-│   ├── requirements.txt
+│   │       ├── sidebar.py
+│   │       └── sidebarOg.py
+│   ├── main.py
 │   └── run.py
 ├── frontend
 │   ├── app.js
 │   ├── index.html
 │   └── styles.css
+├── requirements.txt
+├── tree.txt
 └── venv
-
-
-180 directories, 1317 files

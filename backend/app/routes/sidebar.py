@@ -1,29 +1,23 @@
 # routes/sidebar.py
-from fastapi import APIRouter
-from pydantic import BaseModel
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from app.database import SessionLocal
+from app import models
 
 router = APIRouter()
 
-# temporary in-memory database
-sidebar_items = [
-    {"id": 1, "title": "Home"},
-    {"id": 2, "title": "Lessons"},
-]
-
-class SidebarItem(BaseModel):
-    title: str
-
-
-@router.get("/sidebar")
-def get_sidebar():
-    return sidebar_items
-
+# dependancy
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 @router.post("/sidebar")
-def add_sidebar_item(item: SidebarItem):
-    new_item = {
-        "id": len(sidebar_items) + 1,
-        "title": item.title
-    }
-    sidebar_items.append(new_item)
+def add_sidebar_item(item: dict, db: Session = Depends(get_db)):
+    new_item = models.SidebarItem(title=item["title"])
+    db.add(new_item)
+    db.commit()
+    db.refresh(new_item)
     return new_item
